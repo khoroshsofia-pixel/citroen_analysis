@@ -1,21 +1,21 @@
-# citroen_analysis
-# Переоценённые объявления на авто-маркетплейсе
+# Overpriced listings on a used-car marketplace
 
-**Задача.** Ликвидность объявлений: ключевая метрика авто-маркетплейса. Одна из причин низкой ликвидности: завышенная цена. Вопрос: какие объявления Citroen C3 переоценены относительно аналогичных предложений того же года выпуска и сопоставимого пробега.
+**Problem.** Listing liquidity is a key metric for a used-car marketplace. One driver of low liquidity is an overpriced listing. Question: which Citroen C3 listings are overpriced relative to comparable listings of the same model year and similar mileage.
 
-**Метод.** 336 объявлений, собранных rate-limited парсером. Линейная регрессия `price ~ year + mileage_km` (R² = 0.873) вместо оценки по среднему значению за год.
+**Method.** 336 listings collected with a rate-limited scraper (`parser_fiat.py`). Linear regression `price ~ year + mileage_km` (R² = 0.873) instead of a simple year-average estimate.
 
-![Цена по годам](price_by_year.png)
+![Price by year](price_by_year.png)
 
-**Результат.** Получен ранжированный список переоценённых объявлений: например, `car_004` (2021, 108 792 км) превышает ожидаемую моделью цену на 2606€. Полный разбор, включая обнаруженный артефакт экстраполяции при ранжировании в процентах и ограничения метода: в notebook.
+**Result.** A ranked list of overpriced listings was produced: for example, `car_004` (2021, 108,792 km) exceeds the model's expected price by 2606 EUR. Full analysis, including a discovered extrapolation artifact in percentage-based ranking and method limitations, is in the notebook.
 
-**Полный разбор:** [citroen_analysis.ipynb](citroen_analysis.ipynb)
+**Full analysis:** [citroen_analysis.ipynb](citroen_analysis.ipynb)
 
-## Файлы
+## Files
 
-| Файл | Содержание |
+| File | Content |
 |---|---|
-| `citroen_analysis.ipynb` | Кейс целиком: проблема, вопрос, данные, анализ, вывод, ограничения |
-| `citroen_clean.csv` | Датасет после очистки (336 строк) |
-| `citroen_with_residuals.csv` | Датасет с предсказаниями модели и остатками |
-| `price_by_year.png`, `predicted_vs_actual.png` | Графики |
+| `citroen_analysis.ipynb` | Full case: problem, question, data, analysis, findings, limitations |
+| `parser_fiat.py` | Rate-limited listing scraper |
+| `citroen_clean.csv` | Cleaned dataset (336 rows) |
+| `citroen_with_residuals.csv` | Dataset with model predictions and residuals |
+| `price_by_year.png`, `predicted_vs_actual.png` | Charts |
